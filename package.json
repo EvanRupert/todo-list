@@ -1,0 +1,22 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "Simple Todo web-application written in elm.",
+  "main": "index.html",
+  "scripts": {
+    "test": "s"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvanRupert/todo-list.git"
+  },
+  "keywords": [
+    "elm"
+  ],
+  "author": "Evan Rupert",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EvanRupert/Todo-List/issues"
+  },
+  "homepage": "https://github.com/EvanRupert/Todo-List#readme"
+}

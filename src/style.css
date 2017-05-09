@@ -1,0 +1,58 @@
+
+
+#main {
+    margin: auto;
+    text-align: center;
+}
+
+
+#title {
+    margin: 0;
+    padding: 0;
+}
+
+
+.completed {
+    text-decoration: line-through;
+}
+
+
+
+#list-div {
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+
+.task-thing {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+.item-div {
+    margin: auto;
+    margin-top: 10px;
+    width: 25%;
+    height: 50px;
+    border: 2px solid #737373
+}
+
+
+#list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+.task-content {
+    color: #0066ff;
+    font-size: 18px;
+}
+
+
+
+
+

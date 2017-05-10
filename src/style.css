@@ -1,4 +1,8 @@
 
+html {
+    background-color: #efefef;
+}
+
 
 #main {
     margin: auto;
@@ -9,6 +13,8 @@
 #title {
     margin: 0;
     padding: 0;
+    color: #dae5cc;
+    font-size: 100px;
 }
 
 
@@ -24,12 +30,6 @@
 }
 
 
-.task-thing {
-    display: inline-block;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
 
 .item-div {
     margin: auto;
@@ -37,6 +37,34 @@
     width: 25%;
     height: 50px;
     border: 2px solid #737373
+}
+
+.done-button-div {
+    display: inline-block;
+    width: 10%;
+    height: 50px;
+    background-color: red;
+}
+
+
+.done-button {
+    margin: auto;
+    background: url('../res/approve-circular-button.svg');
+    width: 20px;
+    height: 10px;
+}
+
+
+.close-button-div {
+    display: inline-block;
+    background-color: red;
+    color: red;
+    height: 50px;
+}
+
+
+.close-button {
+    margin: auto;
 }
 
 
@@ -47,9 +75,16 @@
 }
 
 
+.task-content-div {
+    display: inline-block;
+    width: 80%;
+}
+
+
 .task-content {
     color: #0066ff;
     font-size: 18px;
+    text-align: center;
 }
 
 

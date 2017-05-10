@@ -8260,24 +8260,6 @@ var _elm_lang$html$Html_Attributes$classList = function (list) {
 };
 var _elm_lang$html$Html_Attributes$style = _elm_lang$virtual_dom$VirtualDom$style;
 
-var _EvanRupert$todo_list$Todo$last = function (l) {
-	last:
-	while (true) {
-		var _p0 = l;
-		if (_p0.ctor === '[]') {
-			return _elm_lang$core$Maybe$Nothing;
-		} else {
-			var _p1 = _p0._1;
-			if (_elm_lang$core$List$isEmpty(_p1)) {
-				return _elm_lang$core$Maybe$Just(_p0._0);
-			} else {
-				var _v1 = _p1;
-				l = _v1;
-				continue last;
-			}
-		}
-	}
-};
 var _EvanRupert$todo_list$Todo$itemToHtml = function (item) {
 	var listify = function (node) {
 		return item.completed ? A2(
@@ -8311,47 +8293,74 @@ var _EvanRupert$todo_list$Todo$itemToHtml = function (item) {
 			{
 				ctor: '::',
 				_0: A2(
-					_elm_lang$html$Html$button,
+					_elm_lang$html$Html$div,
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class('task-thing'),
+						_0: _elm_lang$html$Html_Attributes$class('done-button-div'),
 						_1: {ctor: '[]'}
 					},
 					{
-						ctor: '::',
-						_0: _elm_lang$html$Html$text('O'),
-						_1: {ctor: '[]'}
-					}),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$p,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$class('task-thing'),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$class('task-content'),
-								_1: {ctor: '[]'}
-							}
-						},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text(item.content),
-							_1: {ctor: '[]'}
-						}),
-					_1: {
 						ctor: '::',
 						_0: A2(
 							_elm_lang$html$Html$button,
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$class('task-thing'),
+								_0: _elm_lang$html$Html_Attributes$class('done-button'),
+								_1: {ctor: '[]'}
+							},
+							{ctor: '[]'}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('task-content-div'),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$span,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$class('task-content'),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text(item.content),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$div,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('close-button-div'),
 								_1: {ctor: '[]'}
 							},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html$text('X'),
+								_0: A2(
+									_elm_lang$html$Html$button,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$class('close-button'),
+										_1: {ctor: '[]'}
+									},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text(
+											_elm_lang$core$Basics$toString(
+												_elm_lang$core$Char$fromCode(10006))),
+										_1: {ctor: '[]'}
+									}),
 								_1: {ctor: '[]'}
 							}),
 						_1: {ctor: '[]'}
@@ -8363,14 +8372,14 @@ var _EvanRupert$todo_list$Todo$blankItem = {content: '', id: 0, completed: false
 var _EvanRupert$todo_list$Todo$update = F2(
 	function (msg, model) {
 		var current = model.cItem;
-		var _p2 = msg;
-		if (_p2.ctor === 'Editing') {
+		var _p0 = msg;
+		if (_p0.ctor === 'Editing') {
 			return _elm_lang$core$Native_Utils.update(
 				model,
 				{
 					cItem: _elm_lang$core$Native_Utils.update(
 						current,
-						{content: _p2._0})
+						{content: _p0._0})
 				});
 		} else {
 			return _elm_lang$core$Native_Utils.update(

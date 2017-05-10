@@ -4,6 +4,7 @@ port module Todo exposing (..)
 import Html exposing (..)
 import Html.Events exposing ( onInput, onClick )
 import Html.Attributes exposing (..)
+import Char exposing (fromCode)
 
 
 --TODO: figure out how to get the styling correct
@@ -83,9 +84,9 @@ itemToHtml item =
                 li [] [ node ]
     in
         div [ class "item-div" ]
-            [ button [ class "task-thing" ] [ text "O" ]
-            , p [ class "task-thing", class "task-content" ] [ text item.content ]
-            , button [ class "task-thing" ] [ text "X" ]
+            [ div [ class "done-button-div" ] [ button [ class "done-button" ] [] ]
+            , div [ class "task-content-div" ] [ span [ class "task-content" ] [ text item.content ] ]
+            , div [ class "close-button-div" ] [ button [ class "close-button" ] [ text <| toString <| fromCode 10006 ] ]
             ]
         |> listify
 

@@ -21,17 +21,34 @@ html {
 
 
 .completed {
-    text-decoration: line-through;
+    background-color: #c9c9c9;
 }
-
 
 
 #list-div {
     margin-bottom: 50px;
-    margin-top: 50px;
 
 }
 
+
+#filter-bar {
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+
+.filter-button {
+    display: inline-block;
+    margin: 10px;
+    border: none;
+    color: black;
+    background-color: #efefef;
+}
+
+
+.selected-filter-button {
+    color: #999999;
+}
 
 
 .item-div {
@@ -116,5 +133,36 @@ html {
 
 
 
+#input-field {
+    width: 50%;
+    padding: 12px 20px;
+    border: 1px solid #737373;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+
+#submit-button {
+    background-color: #dae5cc;
+    color: #737373;
+    padding: 12px 12px;
+    border: none;
+    border-radius: 5px;
+}
+
+
+#submit-button:hover {
+    background-color: #ccddb5;
+}
+
+
+#disabled-submit-button {
+    background-color: #e5e5e5;
+    color: #737373;
+    padding: 12px 12px;
+    border: none;
+    border-radius: 5px;
+}
 
 

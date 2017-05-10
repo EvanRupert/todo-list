@@ -1,32 +1,288 @@
+var _EvanRupert$todo_list$Todo$exists = function (f) {
+	return A2(
+		_elm_lang$core$List$foldl,
+		F2(
+			function (x, acc) {
+				return f(x) ? true : acc;
+			}),
+		false);
+};
+var _EvanRupert$todo_list$Todo$onEnter = function (msg) {
+	var isEnter = function (code) {
+		return _elm_lang$core$Native_Utils.eq(code, 13) ? _elm_lang$core$Json_Decode$succeed(msg) : _elm_lang$core$Json_Decode$fail('not ENTER');
+	};
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'keydown',
+		A2(_elm_lang$core$Json_Decode$andThen, isEnter, _elm_lang$html$Html_Events$keyCode));
+};
+var _EvanRupert$todo_list$Todo$disableIfEmpty = function (model) {
+	return _elm_lang$core$String$isEmpty(model.cItem.content) ? _elm_lang$html$Html_Attributes$id('disabled-submit-button') : _elm_lang$html$Html_Attributes$id('submit-button');
+};
+var _EvanRupert$todo_list$Todo$blankItem = {content: '', id: 0, completed: false, visible: true};
+var _EvanRupert$todo_list$Todo$update = F2(
+	function (msg, model) {
+		var current = model.cItem;
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'Editing':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						cItem: _elm_lang$core$Native_Utils.update(
+							current,
+							{content: _p0._0})
+					});
+			case 'Submit':
+				return (!_elm_lang$core$String$isEmpty(current.content)) ? _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						content: {ctor: '::', _0: current, _1: model.content},
+						cItem: _elm_lang$core$Native_Utils.update(
+							_EvanRupert$todo_list$Todo$blankItem,
+							{id: model.cId + 1}),
+						cId: model.cId + 1
+					}) : model;
+			case 'Remove':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						content: A2(
+							_elm_lang$core$List$filter,
+							function (i) {
+								return !_elm_lang$core$Native_Utils.eq(i.id, _p0._0);
+							},
+							model.content)
+					});
+			case 'Completed':
+				var _p1 = _p0._0;
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						content: A2(
+							_elm_lang$core$List$map,
+							function (i) {
+								return (_elm_lang$core$Native_Utils.eq(i.id, _p1) && i.completed) ? _elm_lang$core$Native_Utils.update(
+									i,
+									{completed: false}) : (_elm_lang$core$Native_Utils.eq(i.id, _p1) ? _elm_lang$core$Native_Utils.update(
+									i,
+									{completed: true}) : i);
+							},
+							model.content)
+					});
+			case 'ClearCompleted':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						content: A2(
+							_elm_lang$core$List$filter,
+							function (_p2) {
+								return !function (_) {
+									return _.completed;
+								}(_p2);
+							},
+							model.content)
+					});
+			default:
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{filter: _p0._0});
+		}
+	});
+var _EvanRupert$todo_list$Todo$Item = F4(
+	function (a, b, c, d) {
+		return {content: a, id: b, completed: c, visible: d};
+	});
+var _EvanRupert$todo_list$Todo$Model = F4(
+	function (a, b, c, d) {
+		return {content: a, cItem: b, cId: c, filter: d};
+	});
+var _EvanRupert$todo_list$Todo$UnfinishedFilter = {ctor: 'UnfinishedFilter'};
+var _EvanRupert$todo_list$Todo$CompletedFilter = {ctor: 'CompletedFilter'};
+var _EvanRupert$todo_list$Todo$AllFilter = {ctor: 'AllFilter'};
+var _EvanRupert$todo_list$Todo$blankModel = {
+	content: {ctor: '[]'},
+	cItem: _EvanRupert$todo_list$Todo$blankItem,
+	cId: 0,
+	filter: _EvanRupert$todo_list$Todo$AllFilter
+};
+var _EvanRupert$todo_list$Todo$ChangeFilter = function (a) {
+	return {ctor: 'ChangeFilter', _0: a};
+};
+var _EvanRupert$todo_list$Todo$ClearCompleted = {ctor: 'ClearCompleted'};
+var _EvanRupert$todo_list$Todo$clearCompletedButton = function (model) {
+	var visibility = A2(
+		_EvanRupert$todo_list$Todo$exists,
+		function (_) {
+			return _.completed;
+		},
+		model.content) ? _elm_lang$html$Html_Attributes$style(
+		{
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'visibility', _1: 'visible'},
+			_1: {ctor: '[]'}
+		}) : _elm_lang$html$Html_Attributes$style(
+		{
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'visibility', _1: 'hidden'},
+			_1: {ctor: '[]'}
+		});
+	return A2(
+		_elm_lang$html$Html$button,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('filter-button'),
+			_1: {
+				ctor: '::',
+				_0: visibility,
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Events$onClick(_EvanRupert$todo_list$Todo$ClearCompleted),
+					_1: {ctor: '[]'}
+				}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text('Clear Finished Items'),
+			_1: {ctor: '[]'}
+		});
+};
+var _EvanRupert$todo_list$Todo$filtersBar = function (model) {
+	var visibility = _elm_lang$core$List$isEmpty(model.content) ? _elm_lang$html$Html_Attributes$style(
+		{
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'visibility', _1: 'hidden'},
+			_1: {ctor: '[]'}
+		}) : _elm_lang$html$Html_Attributes$style(
+		{
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'visibility', _1: 'visible'},
+			_1: {ctor: '[]'}
+		});
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$id('filter-bar'),
+			_1: {
+				ctor: '::',
+				_0: visibility,
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$button,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('filter-button'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$core$Native_Utils.eq(model.filter, _EvanRupert$todo_list$Todo$AllFilter) ? _elm_lang$html$Html_Attributes$class('selected-filter-button') : _elm_lang$html$Html_Attributes$class('nothing'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onClick(
+								_EvanRupert$todo_list$Todo$ChangeFilter(_EvanRupert$todo_list$Todo$AllFilter)),
+							_1: {ctor: '[]'}
+						}
+					}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('All'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$button,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('filter-button'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$core$Native_Utils.eq(model.filter, _EvanRupert$todo_list$Todo$UnfinishedFilter) ? _elm_lang$html$Html_Attributes$class('selected-filter-button') : _elm_lang$html$Html_Attributes$class('nothing'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onClick(
+									_EvanRupert$todo_list$Todo$ChangeFilter(_EvanRupert$todo_list$Todo$UnfinishedFilter)),
+								_1: {ctor: '[]'}
+							}
+						}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Unfinished'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$button,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('filter-button'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$core$Native_Utils.eq(model.filter, _EvanRupert$todo_list$Todo$CompletedFilter) ? _elm_lang$html$Html_Attributes$class('selected-filter-button') : _elm_lang$html$Html_Attributes$class('nothing'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onClick(
+										_EvanRupert$todo_list$Todo$ChangeFilter(_EvanRupert$todo_list$Todo$CompletedFilter)),
+									_1: {ctor: '[]'}
+								}
+							}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Finished'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: _EvanRupert$todo_list$Todo$clearCompletedButton(model),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		});
+};
+var _EvanRupert$todo_list$Todo$Completed = function (a) {
+	return {ctor: 'Completed', _0: a};
+};
+var _EvanRupert$todo_list$Todo$Remove = function (a) {
+	return {ctor: 'Remove', _0: a};
+};
 var _EvanRupert$todo_list$Todo$itemToHtml = function (item) {
-	var listify = function (node) {
-		return item.completed ? A2(
-			_elm_lang$html$Html$li,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$class('completed'),
-				_1: {ctor: '[]'}
-			},
-			{
-				ctor: '::',
-				_0: node,
-				_1: {ctor: '[]'}
-			}) : A2(
+	var ifCompleted = F2(
+		function (item, attrib) {
+			return item.completed ? attrib : _elm_lang$html$Html_Attributes$class('nothing');
+		});
+	return function (x) {
+		return A2(
 			_elm_lang$html$Html$li,
 			{ctor: '[]'},
 			{
 				ctor: '::',
-				_0: node,
+				_0: x,
 				_1: {ctor: '[]'}
 			});
-	};
-	return listify(
+	}(
 		A2(
 			_elm_lang$html$Html$div,
 			{
 				ctor: '::',
 				_0: _elm_lang$html$Html_Attributes$class('item-div'),
-				_1: {ctor: '[]'}
+				_1: {
+					ctor: '::',
+					_0: A2(
+						ifCompleted,
+						item,
+						_elm_lang$html$Html_Attributes$class('completed')),
+					_1: {ctor: '[]'}
+				}
 			},
 			{
 				ctor: '::',
@@ -44,7 +300,12 @@ var _EvanRupert$todo_list$Todo$itemToHtml = function (item) {
 							{
 								ctor: '::',
 								_0: _elm_lang$html$Html_Attributes$class('done-button'),
-								_1: {ctor: '[]'}
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onClick(
+										_EvanRupert$todo_list$Todo$Completed(item.id)),
+									_1: {ctor: '[]'}
+								}
 							},
 							{ctor: '[]'}),
 						_1: {ctor: '[]'}
@@ -65,7 +326,19 @@ var _EvanRupert$todo_list$Todo$itemToHtml = function (item) {
 								{
 									ctor: '::',
 									_0: _elm_lang$html$Html_Attributes$class('task-content'),
-									_1: {ctor: '[]'}
+									_1: {
+										ctor: '::',
+										_0: A2(
+											ifCompleted,
+											item,
+											_elm_lang$html$Html_Attributes$style(
+												{
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'text-decoration', _1: 'line-through'},
+													_1: {ctor: '[]'}
+												})),
+										_1: {ctor: '[]'}
+									}
 								},
 								{
 									ctor: '::',
@@ -90,7 +363,12 @@ var _EvanRupert$todo_list$Todo$itemToHtml = function (item) {
 									{
 										ctor: '::',
 										_0: _elm_lang$html$Html_Attributes$class('close-button'),
-										_1: {ctor: '[]'}
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html_Events$onClick(
+												_EvanRupert$todo_list$Todo$Remove(item.id)),
+											_1: {ctor: '[]'}
+										}
 									},
 									{ctor: '[]'}),
 								_1: {ctor: '[]'}
@@ -100,58 +378,31 @@ var _EvanRupert$todo_list$Todo$itemToHtml = function (item) {
 				}
 			}));
 };
-var _EvanRupert$todo_list$Todo$blankItem = {content: '', id: 0, completed: false};
-var _EvanRupert$todo_list$Todo$update = F2(
-	function (msg, model) {
-		var current = model.cItem;
-		var _p0 = msg;
-		if (_p0.ctor === 'Editing') {
-			return _elm_lang$core$Native_Utils.update(
-				model,
-				{
-					cItem: _elm_lang$core$Native_Utils.update(
-						current,
-						{content: _p0._0})
-				});
-		} else {
-			return _elm_lang$core$Native_Utils.update(
-				model,
-				{
-					content: A2(
-						_elm_lang$core$Basics_ops['++'],
-						model.content,
-						{
-							ctor: '::',
-							_0: current,
-							_1: {ctor: '[]'}
-						}),
-					cItem: _EvanRupert$todo_list$Todo$blankItem
-				});
-		}
-	});
-var _EvanRupert$todo_list$Todo$testList = {
-	ctor: '::',
-	_0: {content: 'Something', id: 0, completed: false},
-	_1: {
-		ctor: '::',
-		_0: {content: 'Something Else', id: 1, completed: false},
-		_1: {ctor: '[]'}
-	}
-};
-var _EvanRupert$todo_list$Todo$blankModel = {content: _EvanRupert$todo_list$Todo$testList, cItem: _EvanRupert$todo_list$Todo$blankItem, cId: 0};
-var _EvanRupert$todo_list$Todo$Item = F3(
-	function (a, b, c) {
-		return {content: a, id: b, completed: c};
-	});
-var _EvanRupert$todo_list$Todo$Model = F3(
-	function (a, b, c) {
-		return {content: a, cItem: b, cId: c};
-	});
 var _EvanRupert$todo_list$Todo$Submit = {ctor: 'Submit'};
 var _EvanRupert$todo_list$Todo$Editing = function (a) {
 	return {ctor: 'Editing', _0: a};
 };
 var _EvanRupert$todo_list$Todo$view = function (model) {
+	var itemFilter = function () {
+		var _p3 = model.filter;
+		switch (_p3.ctor) {
+			case 'AllFilter':
+				return _elm_lang$core$Basics$identity;
+			case 'CompletedFilter':
+				return _elm_lang$core$List$filter(
+					function (_) {
+						return _.completed;
+					});
+			default:
+				return _elm_lang$core$List$filter(
+					function (_p4) {
+						return !function (_) {
+							return _.completed;
+						}(_p4);
+					});
+		}
+	}();
+	var items = model.content;
 	return A2(
 		_elm_lang$html$Html$div,
 		{
@@ -176,57 +427,76 @@ var _EvanRupert$todo_list$Todo$view = function (model) {
 			_1: {
 				ctor: '::',
 				_0: A2(
-					_elm_lang$html$Html$div,
+					_elm_lang$html$Html$input,
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$id('list-div'),
-						_1: {ctor: '[]'}
-					},
-					{
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$ol,
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$id('list'),
-								_1: {ctor: '[]'}
-							},
-							A2(_elm_lang$core$List$map, _EvanRupert$todo_list$Todo$itemToHtml, model.content)),
-						_1: {ctor: '[]'}
-					}),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$input,
-						{
+						_0: _elm_lang$html$Html_Attributes$placeholder('What to do...?'),
+						_1: {
 							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$placeholder('What to do...?'),
+							_0: _elm_lang$html$Html_Events$onInput(_EvanRupert$todo_list$Todo$Editing),
 							_1: {
 								ctor: '::',
-								_0: _elm_lang$html$Html_Events$onInput(_EvanRupert$todo_list$Todo$Editing),
+								_0: _EvanRupert$todo_list$Todo$onEnter(_EvanRupert$todo_list$Todo$Submit),
 								_1: {
 									ctor: '::',
 									_0: _elm_lang$html$Html_Attributes$value(model.cItem.content),
-									_1: {ctor: '[]'}
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$id('input-field'),
+										_1: {ctor: '[]'}
+									}
 								}
 							}
+						}
+					},
+					{ctor: '[]'}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$button,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onClick(_EvanRupert$todo_list$Todo$Submit),
+							_1: {
+								ctor: '::',
+								_0: _EvanRupert$todo_list$Todo$disableIfEmpty(model),
+								_1: {ctor: '[]'}
+							}
 						},
-						{ctor: '[]'}),
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Submit'),
+							_1: {ctor: '[]'}
+						}),
 					_1: {
 						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$button,
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Events$onClick(_EvanRupert$todo_list$Todo$Submit),
-								_1: {ctor: '[]'}
-							},
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html$text('Add'),
-								_1: {ctor: '[]'}
-							}),
-						_1: {ctor: '[]'}
+						_0: _EvanRupert$todo_list$Todo$filtersBar(model),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$div,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$id('list-div'),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$ol,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$id('list'),
+											_1: {ctor: '[]'}
+										},
+										A2(
+											_elm_lang$core$List$map,
+											_EvanRupert$todo_list$Todo$itemToHtml,
+											itemFilter(items))),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}
 					}
 				}
 			}

@@ -7,9 +7,8 @@ import Html.Attributes exposing (..)
 import Char exposing (fromCode)
 
 
---TODO: figure out how to get the styling correct
---TODO: add 'event' for pressing the enter key to submit item
---FIXME: fix length issue for task strings
+--TODO: add events for marking task as completed and for deleting task
+--TODO: styalize the input text field and 'add' button
 
 
 type alias Item =
@@ -86,7 +85,7 @@ itemToHtml item =
         div [ class "item-div" ]
             [ div [ class "done-button-div" ] [ button [ class "done-button" ] [] ]
             , div [ class "task-content-div" ] [ span [ class "task-content" ] [ text item.content ] ]
-            , div [ class "close-button-div" ] [ button [ class "close-button" ] [ text <| toString <| fromCode 10006 ] ]
+            , div [ class "close-button-div" ] [ button [ class "close-button" ] [] ]
             ]
         |> listify
 
@@ -106,18 +105,6 @@ update msg model =
                 | content = model.content ++ [current]
                 , cItem = blankItem
                 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

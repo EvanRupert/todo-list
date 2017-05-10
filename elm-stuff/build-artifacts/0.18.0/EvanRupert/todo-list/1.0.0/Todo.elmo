@@ -92,13 +92,7 @@ var _EvanRupert$todo_list$Todo$itemToHtml = function (item) {
 										_0: _elm_lang$html$Html_Attributes$class('close-button'),
 										_1: {ctor: '[]'}
 									},
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text(
-											_elm_lang$core$Basics$toString(
-												_elm_lang$core$Char$fromCode(10006))),
-										_1: {ctor: '[]'}
-									}),
+									{ctor: '[]'}),
 								_1: {ctor: '[]'}
 							}),
 						_1: {ctor: '[]'}

@@ -1,6 +1,8 @@
 
 html {
     background-color: #efefef;
+    width: 960px;
+    margin: auto;
 }
 
 
@@ -27,6 +29,7 @@ html {
 #list-div {
     margin-bottom: 50px;
     margin-top: 50px;
+
 }
 
 
@@ -34,37 +37,60 @@ html {
 .item-div {
     margin: auto;
     margin-top: 10px;
-    width: 25%;
-    height: 50px;
-    border: 2px solid #737373
+    width: 540px;
+    margin-left: 200px;
+    margin-right: 220px;
+    min-height: 50px;
+    border: 2px solid #737373;
+    border-radius: 10px;
 }
 
 .done-button-div {
     display: inline-block;
     width: 10%;
     height: 50px;
-    background-color: red;
 }
 
 
 .done-button {
-    margin: auto;
-    background: url('../res/approve-circular-button.svg');
-    width: 20px;
-    height: 10px;
+   background-color: #efefef;
+   border: 1px solid #999999;
+   border-radius: 50%;
+   padding: 10px 10px;
+   text-decoration: none;
+   -webkit-transition-duration: 0.6s;
+   transition-duration: 0.6s;
+   cursor: pointer;
+   margin-top: 15px;
+}
+
+.done-button:hover {
+    background-color: #2cf76c;
 }
 
 
 .close-button-div {
     display: inline-block;
-    background-color: red;
-    color: red;
+    width: 10%;
     height: 50px;
 }
 
 
 .close-button {
-    margin: auto;
+    background-color: #efefef;
+    border: 1px solid #999999;
+    border-radius: 50%;
+    padding: 10px 10px;
+    text-decoration: none;
+    -webkit-transition-duration: 0.6s;
+    transition-duration: 0.6s;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+
+.close-button:hover {
+    background-color: #e26f6f;
 }
 
 
@@ -82,9 +108,10 @@ html {
 
 
 .task-content {
-    color: #0066ff;
+    color: #595959;
     font-size: 18px;
     text-align: center;
+    margin: auto;
 }
 
 

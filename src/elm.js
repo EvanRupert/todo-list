@@ -8281,7 +8281,7 @@ var _EvanRupert$todo_list$Todo$onEnter = function (msg) {
 var _EvanRupert$todo_list$Todo$disableIfEmpty = function (model) {
 	return _elm_lang$core$String$isEmpty(model.cItem.content) ? _elm_lang$html$Html_Attributes$id('disabled-submit-button') : _elm_lang$html$Html_Attributes$id('submit-button');
 };
-var _EvanRupert$todo_list$Todo$blankItem = {content: '', id: 0, completed: false, visible: true};
+var _EvanRupert$todo_list$Todo$blankItem = {content: '', id: 0, completed: false};
 var _EvanRupert$todo_list$Todo$update = F2(
 	function (msg, model) {
 		var current = model.cItem;
@@ -8351,9 +8351,9 @@ var _EvanRupert$todo_list$Todo$update = F2(
 					{filter: _p0._0});
 		}
 	});
-var _EvanRupert$todo_list$Todo$Item = F4(
-	function (a, b, c, d) {
-		return {content: a, id: b, completed: c, visible: d};
+var _EvanRupert$todo_list$Todo$Item = F3(
+	function (a, b, c) {
+		return {content: a, id: b, completed: c};
 	});
 var _EvanRupert$todo_list$Todo$Model = F4(
 	function (a, b, c, d) {

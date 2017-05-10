@@ -8,23 +8,26 @@ import Char exposing (fromCode)
 import Json.Decode as Json
 
 
---FIXME: list items do not update until the filter has been changed
-    --IDEA: this could be done by moving the actual filtering to the
-    -- view function as a part of the listItems assignment
-    -- this would also allow the 'visible' field to be discarded
-    -- and the ChangeFilter match to only change the 'filter' field in
-    -- the model
-
-
+{-| Type used to represent one item in the todo list
+    'content' is the main string of the todo item
+    'id' the unique id number that helps identify the item
+    'completed' a bool that represents if the item has been marked as completed or not
+-}
 type alias Item =
     { content : String
     , id : Int
     , completed : Bool
-    , visible : Bool
     }
 
 
+{-| Model type used to represent all of the persistant data
+    needed in the application
+    'content' the list of items that represent the whole todo list
+    'cItem' is the current item being updated
+    'cId' newest id of the last item created
+    'filter' is the current filter in place
 
+-}
 type alias Model =
     { content : List Item
     , cItem : Item
@@ -33,12 +36,16 @@ type alias Model =
     }
 
 
+{-| Type to represent the current filter being used
+-}
 type Filter
     = AllFilter
     | CompletedFilter
     | UnfinishedFilter
 
 
+{-| Type to represent the input from the page flowing back into the application
+-}
 type Msg 
     = Editing String
     | Submit
@@ -47,11 +54,13 @@ type Msg
     | ClearCompleted
     | ChangeFilter Filter
 
-
+--main beginnerProgram start location
 main =
     beginnerProgram { model = blankModel, view = view, update = update }
 
 
+{-| Represents the starting state of the application
+-}
 blankModel : Model
 blankModel = 
     { content = []
@@ -61,19 +70,22 @@ blankModel =
     }
 
 
-
+{-| Empty template for creating new items with default values
+-}
 blankItem : Item
 blankItem =
     { content = ""
     , id = 0
     , completed = False
-    , visible = True
     }
 
 
 --VIEW
 
 
+{-| Function that is given the current state and produces the html to be
+    displayed on the page
+-}
 view : Model -> Html Msg
 view model =
     let
@@ -107,6 +119,9 @@ view model =
             ]
 
 
+{-| Sets the class of the list div as to not show the list
+    if there are currently no elements in it
+-}
 disableIfEmpty : Model -> Attribute Msg
 disableIfEmpty model =
     if String.isEmpty model.cItem.content then
@@ -115,6 +130,9 @@ disableIfEmpty model =
         id "submit-button"
 
 
+{-| Function to produce the 'Clear Finished Items' button given the current app state
+    Will only show the button if there are some completed items currently in the list
+-}
 clearCompletedButton : Model -> Html Msg
 clearCompletedButton model =
     let
@@ -130,6 +148,9 @@ clearCompletedButton model =
                ] [ text "Clear Finished Items" ]
 
 
+{-| Function to produce the filter button bar given the current state of the program
+    Will only show the buttons if there is any item in the list
+-}
 filtersBar : Model -> Html Msg
 filtersBar model = 
     let
@@ -156,6 +177,10 @@ filtersBar model =
             ]
 
 
+{-| Given an item this function will produce the html to represent that item on a webpage
+    This includes both the 'completed' and 'close' buttons as well as the class assignments 
+    to style these elements
+-}
 itemToHtml : Item -> Html Msg
 itemToHtml item =
     let 
@@ -186,6 +211,8 @@ itemToHtml item =
         |> \x -> li [] [x]
 
 
+{-| Event created to Submit an item to the list whenever the enter key is pressed
+-}
 onEnter : Msg -> Attribute Msg
 onEnter msg =
     let 
@@ -201,6 +228,9 @@ onEnter msg =
 --UPDATE
 
 
+{-| Main update function that takes input from the app user and the current state of the app
+    and updates the app according to what input is given by the user
+-}
 update : Msg -> Model -> Model
 update msg model =
     let
@@ -244,37 +274,15 @@ update msg model =
 
             ChangeFilter fil ->
                 { model | filter = fil }
-                    -- AllFilter -> 
-                    --     { model
-                    --     | content = List.map (\i ->
-                    --         { i | visible = True } ) model.content
-                    --     , filter = AllFilter
-                    --     }
 
-                    -- CompletedFilter -> 
-                    --     { model 
-                    --     | content = List.map (\i ->
-                    --         if i.completed then
-                    --             { i | visible = True }
-                    --         else
-                    --             { i | visible = False }) model.content
-                    --     , filter = CompletedFilter
-                    --     }
-
-                    -- UnfinishedFilter ->
-                    --     { model
-                    --     | content = List.map (\i ->
-                    --         if i.completed then 
-                    --             { i | visible = False }
-                    --         else
-                    --             { i | visible = True }) model.content
-                    --     , filter = UnfinishedFilter
-                    --     }
 
 
 --UTILITY
 
 
+{-| Helper function to return true if any element in a list returns true
+    for the predicate function given.
+-}
 exists : (a -> Bool) -> List a -> Bool
 exists f =
     List.foldl (\x acc -> if f x then True else acc) False

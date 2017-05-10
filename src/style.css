@@ -1,4 +1,4 @@
-
+/* Used to set background color and width of page */
 html {
     background-color: #efefef;
     width: 960px;
@@ -6,12 +6,14 @@ html {
 }
 
 
+/* Used for the div encasing the whole app */
 #main {
     margin: auto;
     text-align: center;
 }
 
 
+/* Used for the title 'Todo List' */
 #title {
     margin: 0;
     padding: 0;
@@ -20,23 +22,27 @@ html {
 }
 
 
+/* Marks a item-div as completed by adding a darker gray background-color */
 .completed {
     background-color: #c9c9c9;
 }
 
 
+/* Used in the div encasing the list of items */
 #list-div {
     margin-bottom: 50px;
 
 }
 
 
+/* Div that holds all of the filter selector buttons */
 #filter-bar {
     margin-top: 20px;
     margin-bottom: 0px;
 }
 
 
+/* Used on all of the filter selector buttons */
 .filter-button {
     display: inline-block;
     margin: 10px;
@@ -46,11 +52,14 @@ html {
 }
 
 
+/* Changes a filter-button to be a lighter shade to show
+   that it is currently in use */
 .selected-filter-button {
     color: #999999;
 }
 
 
+/* Div that surrounds each item in the list */
 .item-div {
     margin: auto;
     margin-top: 10px;
@@ -62,6 +71,8 @@ html {
     border-radius: 10px;
 }
 
+
+/* Div surrounding each done button in the individual item divs */
 .done-button-div {
     display: inline-block;
     width: 10%;
@@ -69,6 +80,7 @@ html {
 }
 
 
+/* Button to mark a task as done */
 .done-button {
    background-color: #efefef;
    border: 1px solid #999999;
@@ -81,11 +93,14 @@ html {
    margin-top: 15px;
 }
 
+
+/* Changes color of done button to green if hovered over */
 .done-button:hover {
     background-color: #2cf76c;
 }
 
 
+/* Div surrounding each close button in the individual item divs */
 .close-button-div {
     display: inline-block;
     width: 10%;
@@ -93,6 +108,7 @@ html {
 }
 
 
+/* Button to delete an item from the todo list */
 .close-button {
     background-color: #efefef;
     border: 1px solid #999999;
@@ -106,11 +122,13 @@ html {
 }
 
 
+/* Changes color of close button to red if hovered over */
 .close-button:hover {
     background-color: #e26f6f;
 }
 
 
+/* Used in the 'ol' ordered list to prevent visual numeration */
 #list {
     list-style-type: none;
     margin: 0;
@@ -118,12 +136,14 @@ html {
 }
 
 
+/* Div surrounding the string of each item */
 .task-content-div {
     display: inline-block;
     width: 80%;
 }
 
 
+/* Style for the string of each item */
 .task-content {
     color: #595959;
     font-size: 18px;
@@ -132,7 +152,7 @@ html {
 }
 
 
-
+/* Input field for adding new items to the list */
 #input-field {
     width: 50%;
     padding: 12px 20px;
@@ -143,6 +163,7 @@ html {
 }
 
 
+/* Button used to submit items to the list */
 #submit-button {
     background-color: #dae5cc;
     color: #737373;
@@ -152,11 +173,14 @@ html {
 }
 
 
+/* Darkens the shade of green on submit button when hovered over */
 #submit-button:hover {
     background-color: #ccddb5;
 }
 
 
+/* Used whenever there is no text in the input box to show that
+   there is no new item to be added */
 #disabled-submit-button {
     background-color: #e5e5e5;
     color: #737373;

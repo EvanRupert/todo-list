@@ -1,10 +1,15 @@
 port module Todo exposing (..)
 
 
+
+--JACOB NOTES
+--single file for ports
+--Do not write logic in view function
+
+
 import Html exposing (..)
 import Html.Events exposing ( onInput, onClick, on, keyCode )
 import Html.Attributes exposing (..)
-import Char exposing (fromCode)
 import Json.Decode as Json
 
 
@@ -55,6 +60,7 @@ type Msg
     | ChangeFilter Filter
 
 --main beginnerProgram start location
+main : Program Never Model Msg
 main =
     beginnerProgram { model = blankModel, view = view, update = update }
 

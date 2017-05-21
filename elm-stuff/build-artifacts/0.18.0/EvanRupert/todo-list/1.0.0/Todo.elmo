@@ -260,89 +260,66 @@ var _EvanRupert$todo_list$Todo$itemToHtml = function (item) {
 		function (item, attrib) {
 			return item.completed ? attrib : _elm_lang$html$Html_Attributes$class('nothing');
 		});
-	return function (x) {
-		return A2(
-			_elm_lang$html$Html$li,
-			{ctor: '[]'},
-			{
-				ctor: '::',
-				_0: x,
-				_1: {ctor: '[]'}
-			});
-	}(
-		A2(
-			_elm_lang$html$Html$div,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$class('item-div'),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						ifCompleted,
-						item,
-						_elm_lang$html$Html_Attributes$class('completed')),
-					_1: {ctor: '[]'}
-				}
-			},
-			{
+	return A2(
+		_elm_lang$html$Html$li,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('collection-item'),
+			_1: {
 				ctor: '::',
 				_0: A2(
-					_elm_lang$html$Html$div,
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class('done-button-div'),
-						_1: {ctor: '[]'}
-					},
-					{
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$button,
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$class('done-button'),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$html$Html_Events$onClick(
-										_EvanRupert$todo_list$Todo$Completed(item.id)),
-									_1: {ctor: '[]'}
-								}
-							},
-							{ctor: '[]'}),
-						_1: {ctor: '[]'}
-					}),
-				_1: {
+					ifCompleted,
+					item,
+					_elm_lang$html$Html_Attributes$class('grey lighten-2')),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('row'),
+					_1: {ctor: '[]'}
+				},
+				{
 					ctor: '::',
 					_0: A2(
 						_elm_lang$html$Html$div,
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$class('task-content-div'),
+							_0: _elm_lang$html$Html_Attributes$class('col s2'),
 							_1: {ctor: '[]'}
 						},
 						{
 							ctor: '::',
 							_0: A2(
-								_elm_lang$html$Html$span,
+								_elm_lang$html$Html$button,
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$class('task-content'),
+									_0: _elm_lang$html$Html_Attributes$class('btn-floating btn-large waves-effect waves-dark completed-button green lighten-3'),
 									_1: {
 										ctor: '::',
-										_0: A2(
-											ifCompleted,
-											item,
-											_elm_lang$html$Html_Attributes$style(
-												{
-													ctor: '::',
-													_0: {ctor: '_Tuple2', _0: 'text-decoration', _1: 'line-through'},
-													_1: {ctor: '[]'}
-												})),
+										_0: _elm_lang$html$Html_Events$onClick(
+											_EvanRupert$todo_list$Todo$Completed(item.id)),
 										_1: {ctor: '[]'}
 									}
 								},
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html$text(item.content),
+									_0: A2(
+										_elm_lang$html$Html$i,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$class('material-icons'),
+											_1: {ctor: '[]'}
+										},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('done'),
+											_1: {ctor: '[]'}
+										}),
 									_1: {ctor: '[]'}
 								}),
 							_1: {ctor: '[]'}
@@ -353,30 +330,84 @@ var _EvanRupert$todo_list$Todo$itemToHtml = function (item) {
 							_elm_lang$html$Html$div,
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$class('close-button-div'),
+								_0: _elm_lang$html$Html_Attributes$class('col s8'),
 								_1: {ctor: '[]'}
 							},
 							{
 								ctor: '::',
 								_0: A2(
-									_elm_lang$html$Html$button,
+									_elm_lang$html$Html$p,
 									{
 										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$class('close-button'),
+										_0: A2(
+											ifCompleted,
+											item,
+											_elm_lang$html$Html_Attributes$style(
+												{
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'text-decoration', _1: 'line-through'},
+													_1: {ctor: '[]'}
+												})),
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$html$Html_Events$onClick(
-												_EvanRupert$todo_list$Todo$Remove(item.id)),
+											_0: _elm_lang$html$Html_Attributes$class('item-content'),
 											_1: {ctor: '[]'}
 										}
 									},
-									{ctor: '[]'}),
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text(item.content),
+										_1: {ctor: '[]'}
+									}),
 								_1: {ctor: '[]'}
 							}),
-						_1: {ctor: '[]'}
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$div,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$class('col s2'),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$button,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$class('btn-floating btn-large waves-effect waves-dark remove-button red lighten-3'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html_Events$onClick(
+													_EvanRupert$todo_list$Todo$Remove(item.id)),
+												_1: {ctor: '[]'}
+											}
+										},
+										{
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$i,
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$class('material-icons'),
+													_1: {ctor: '[]'}
+												},
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html$text('remove'),
+													_1: {ctor: '[]'}
+												}),
+											_1: {ctor: '[]'}
+										}),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}
 					}
-				}
-			}));
+				}),
+			_1: {ctor: '[]'}
+		});
 };
 var _EvanRupert$todo_list$Todo$Submit = {ctor: 'Submit'};
 var _EvanRupert$todo_list$Todo$Editing = function (a) {
@@ -487,7 +518,11 @@ var _EvanRupert$todo_list$Todo$view = function (model) {
 										{
 											ctor: '::',
 											_0: _elm_lang$html$Html_Attributes$id('list'),
-											_1: {ctor: '[]'}
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$class('collection'),
+												_1: {ctor: '[]'}
+											}
 										},
 										A2(
 											_elm_lang$core$List$map,

@@ -190,3 +190,19 @@ html {
 }
 
 
+.completed-button {
+    margin-top: 10%;
+    margin-left: 0;
+}
+
+
+.remove-button {
+    margin-top: 10%;
+    margin-right: 0;
+}
+
+
+.item-content {
+    font-size: 24px;
+}
+

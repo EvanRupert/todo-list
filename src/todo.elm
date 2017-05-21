@@ -1,7 +1,6 @@
 port module Todo exposing (..)
 
 
-
 --JACOB NOTES
 --single file for ports
 --Do not write logic in view function
@@ -117,7 +116,7 @@ view model =
                     ] [ text "Submit" ]
             , filtersBar model
             , div [ id "list-div" ] 
-                [ ol [ id "list" ] 
+                [ ol [ id "list", class "collection" ] 
                     (items
                     |> itemFilter
                     |> List.map itemToHtml)
@@ -183,38 +182,95 @@ filtersBar model =
             ]
 
 
+-- filtersBar : Model -> Html Msg
+-- filtersBar model =
+--     let 
+--         visibility =
+--             if List.isEmpty model.content then
+--                 style [ ("visibility", "hidden") ]
+--             else
+--                 style [ ("visibility", "visible") ]
+--     in
+--         ul [ class "tabs" ] 
+--             [ li [ class "tab col s3" ] [ button [ onClick <| ChangeFilter AllFilter ] [ text "All" ] ]
+--             , li [ class "tab col s3" ] [ button [ onClick <| ChangeFilter UnfinishedFilter ] [ text "Unfinished" ] ]
+--             , li [ class "tab col s3" ] [ button [ onClick <| ChangeFilter CompletedFilter ] [ text "Finished" ] ]
+--             , clearCompletedButton model
+--             ]
+        
+
+
+
 {-| Given an item this function will produce the html to represent that item on a webpage
     This includes both the 'completed' and 'close' buttons as well as the class assignments 
     to style these elements
 -}
+-- itemToHtml : Item -> Html Msg
+-- itemToHtml item =
+--     let 
+--         ifCompleted item attrib =
+--             if item.completed then
+--                 attrib
+--             else 
+--                 class "nothing"
+
+--     in
+--         div [ class "item-div", ifCompleted item (class "completed") ]
+--             [ div [ class "done-button-div" ] 
+--                 [ button [ class "done-button"
+--                          , onClick <| Completed item.id                             
+--                          ] [] 
+--                 ]
+--             , div [ class "task-content-div" ] [ span [ class "task-content"
+--                                                       , ifCompleted item (style [("text-decoration", "line-through")])
+--                                                       ] [ text item.content ] 
+--                                                ]
+--             , div [ class "close-button-div" ] 
+--                 [ button 
+--                     [ class "close-button"
+--                     , onClick <|Remove item.id 
+--                     ] [] 
+--                 ]
+--             ]
+--         |> \x -> li [] [x]
+
+
 itemToHtml : Item -> Html Msg
-itemToHtml item =
+itemToHtml item = 
     let 
         ifCompleted item attrib =
             if item.completed then
                 attrib
-            else 
+            else
                 class "nothing"
-
     in
-        div [ class "item-div", ifCompleted item (class "completed") ]
-            [ div [ class "done-button-div" ] 
-                [ button [ class "done-button"
-                         , onClick <| Completed item.id                             
-                         ] [] 
-                ]
-            , div [ class "task-content-div" ] [ span [ class "task-content"
-                                                      , ifCompleted item (style [("text-decoration", "line-through")])
-                                                      ] [ text item.content ] 
-                                               ]
-            , div [ class "close-button-div" ] 
-                [ button 
-                    [ class "close-button"
-                    , onClick <|Remove item.id 
-                    ] [] 
+        li [ class "collection-item"
+           , ifCompleted item <| class "grey lighten-2"
+           ]
+            [ div [ class "row" ]
+                [ div [ class "col s2" ]
+                    [ button [ class "btn-floating btn-large waves-effect waves-dark completed-button green lighten-3"
+                             , onClick <| Completed item.id
+                             ] 
+                        [ i [ class "material-icons" ] [ text "done" ]
+                        ]
+                    ]
+                , div [ class "col s8" ]
+                    [ p [ ifCompleted item <| style [ ("text-decoration", "line-through") ]
+                        , class "item-content"
+                        ] 
+                        [ text item.content ] 
+                    ]
+                , div [ class "col s2" ]
+                    [ button [ class "btn-floating btn-large waves-effect waves-dark remove-button red lighten-3"
+                             , onClick <| Remove item.id
+                             ] 
+                        [ i [ class "material-icons" ] [ text "remove" ] ]
+                    ]
                 ]
             ]
-        |> \x -> li [] [x]
+
+
 
 
 {-| Event created to Submit an item to the list whenever the enter key is pressed

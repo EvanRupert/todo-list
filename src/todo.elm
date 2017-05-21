@@ -6,7 +6,7 @@ port module Todo exposing (..)
 --Do not write logic in view function
 
 
---MOM notes
+--KIM NOTES
 --smaller list container
 --change color of green button after item is completed
 --unexpected results with word wrap on long items,  Formatting may be removed, spaces between sentances are removed.

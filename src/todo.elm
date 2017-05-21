@@ -6,6 +6,12 @@ port module Todo exposing (..)
 --Do not write logic in view function
 
 
+--MOM notes
+--smaller list container
+--change color of green button after item is completed
+--unexpected results with word wrap on long items,  Formatting may be removed, spaces between sentances are removed.
+
+
 import Html exposing (..)
 import Html.Events exposing ( onInput, onClick, on, keyCode )
 import Html.Attributes exposing (..)
